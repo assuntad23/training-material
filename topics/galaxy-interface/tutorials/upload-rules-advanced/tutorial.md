@@ -14,8 +14,7 @@ tags:
   - collections
   - tags
 requirements:
-  -
-    type: "internal"
+  - type: "internal"
     topic_name: galaxy-interface
     tutorials:
       - collections
@@ -27,22 +26,24 @@ subtopic: upload
 ---
 
 # Introduction
+
 {:.no_toc}
 
 This builds on the previous Rule Based Uploader tutorial to cover even more advanced topics.
 
-> ###  {% icon comment %} Audience
+> ### {% icon comment %} Audience
+>
 > This tutorial assumes a basic knowledge of using dataset collections in Galaxy but doesn't assume any particular knowledge of biology or bioinformatics. If you have not used collections with Galaxy previously, please check out the [using dataset collections]({% link topics/galaxy-interface/tutorials/collections/tutorial.md %}) tutorial.
-{: .comment}
+> {: .comment}
 
 > ### Agenda
 >
 > In this tutorial, we will:
 >
 > 1. TOC
-> {:toc}
+>    {:toc}
 >
-{: .agenda}
+> {: .agenda}
 
 # Building URLs from Accession Information
 
@@ -58,103 +59,109 @@ In order to make this data useful for the Rule Builder, we need to turn these ac
 >
 > 1. Open [Uniprot](https://www.uniprot.org/uniprot/E7C0H6)
 > 1. **Click** on one of the entries in the table (e.g. `E7C0H6`)
-> 2. **Select** `Format` from the top menu
-> 3. **Click** `FASTA (canonical)`
+> 1. **Select** `Format` from the top menu
+> 1. **Click** `FASTA (canonical)`
 >
 >    ![Link to access FASTA file](../../images/rules/uniprot_fasta.png)
 >
-> 4. Your browser will redirect to the fasta file
+> 1. Your browser will redirect to the fasta file
 >
 >    ![Viewing the FASTA file](../../images/rules/uniprot_fasta_url.png)
 >
-> 5. We can deduce that the FASTA files for the other accession IDs will be available from URLs of the form `https://www.uniprot.org/uniprot/{identifier}.fasta`
+> 1. We can deduce that the FASTA files for the other accession IDs will be available from URLs of the form `https://www.uniprot.org/uniprot/{identifier}.fasta`
 >
-{: .hands_on}
-{:#example-3-metadata}
+> {: .hands_on}
+> {:#example-3-metadata}
 
 We will use this information to build a collection of FASTA files from our query.
 
 > ### {% icon hands_on %} Hands-on: Build Collection from Uniprot Accession IDs
 >
-> 1. Open the Rule Builder
->    - *"Upload data as"*: `Collection(s)`
->    - *"Load tabular data from"*: `Pasted Table`
->    - **Paste** the following table:
+> 1.  Open the Rule Builder
 >
->      ```
->      Entry	Entry name	Status	Protein names	Gene names	Organism	Length
->      E7C0H6	E7C0H6_9PAPI	unreviewed	Major capsid protein L1	L1	Equus caballus papillomavirus 3	498
->      E7C0H0	E7C0H0_9PAPI	unreviewed	Protein E6	E6	Equus caballus papillomavirus 3	150
->      E7C0H5	E7C0H5_9PAPI	unreviewed	Minor capsid protein L2	L2	Equus caballus papillomavirus 3	498
->      E7C0H1	E7C0H1_9PAPI	unreviewed	Protein E7		Equus caballus papillomavirus 3	93
->      E7C0H3	E7C0H3_9PAPI	unreviewed	Regulatory protein E2	E2	Equus caballus papillomavirus 3	421
->      E7C0H4	E7C0H4_9PAPI	unreviewed	Putative E4 early protein (Fragment)		Equus caballus papillomavirus 3	175
->      E7C0H2	E7C0H2_9PAPI	unreviewed	Replication protein E1 (EC 3.6.4.12) (ATP-dependent helicase E1)	E1	Equus caballus papillomavirus 3	621
->      ```
+>     - _"Upload data as"_: `Collection(s)`
+>     - _"Load tabular data from"_: `Pasted Table`
+>     - **Paste** the following table:
 >
->    - Click `Build`
->   ![screenshot](../../images/rules/rules_example_4_2_initial_rules.png)
+>       ```
+>       Entry	Entry name	Status	Protein names	Gene names	Organism	Length
+>       E7C0H6	E7C0H6_9PAPI	unreviewed	Major capsid protein L1	L1	Equus caballus papillomavirus 3	498
+>       E7C0H0	E7C0H0_9PAPI	unreviewed	Protein E6	E6	Equus caballus papillomavirus 3	150
+>       E7C0H5	E7C0H5_9PAPI	unreviewed	Minor capsid protein L2	L2	Equus caballus papillomavirus 3	498
+>       E7C0H1	E7C0H1_9PAPI	unreviewed	Protein E7		Equus caballus papillomavirus 3	93
+>       E7C0H3	E7C0H3_9PAPI	unreviewed	Regulatory protein E2	E2	Equus caballus papillomavirus 3	421
+>       E7C0H4	E7C0H4_9PAPI	unreviewed	Putative E4 early protein (Fragment)		Equus caballus papillomavirus 3	175
+>       E7C0H2	E7C0H2_9PAPI	unreviewed	Replication protein E1 (EC 3.6.4.12) (ATP-dependent helicase E1)	E1	Equus caballus papillomavirus 3	621
+>       ```
 >
-> 2. Let's apply some initial filtering to our data:
->    - From **Filter** menu, select `First or Last N Rows`
->        - Filter the first row
->    - From **Rules** menu, select  `Remove Columns`
->        - Remove columns B, C, E, F, and G.
->    - From **Rules** menu, select  `Add / Modify Column Definitions`
->        - Click `Add Definition`, `Info`, Column `B`
+>     - Click `Build` > ![screenshot](../../images/rules/rules_example_4_2_initial_rules.png)
 >
->          This is a block of text that will appear in the history panel when the dataset is expanded.
->    ![screenshot](../../images/rules/rules_example_4_3_basic_rules.png)
+> 2.  Let's apply some initial filtering to our data:
 >
->    These datasets appear in a seemingly random order, it will be easier to manage things in the history panel if we sort this data first.
->    ![screenshot](../../images/rules/rules_example_4_4_sort.png)
+>     - From **Filter** menu, select `First or Last N Rows`
+>       - Filter the first row
+>     - From **Rules** menu, select `Remove Columns`
+>       - Remove columns B, C, E, F, and G.
+>     - From **Rules** menu, select `Add / Modify Column Definitions` - Click `Add Definition`, `Info`, Column `B`
 >
-> 3. From **Rules** menu, select `Sort`
->     - *"From Column"*: `A`
+>             This is a block of text that will appear in the history panel when the dataset is expanded.
 >
->    Next is the key step, we will build a URL from the pattern we described above using the accession ID in column A.
+>       ![screenshot](../../images/rules/rules_example_4_3_basic_rules.png)
 >
-> 4. From **Column** menu, select `Using a Regular Expression`
->    - *"From Column"*: `A`
->    - Select `Create column from expression replacement`
->    - *"Regular Expression"*: `.*`
->    - *"Replacement Expression"*: `https://www.uniprot.org/uniprot/\0.fasta`
->    - Click `Apply`
+>     These datasets appear in a seemingly random order, it will be easier to manage things in the history panel if we sort this data first.
+>     ![screenshot](../../images/rules/rules_example_4_4_sort.png)
 >
->      ![screenshot](../../images/rules/rules_example_4_5_url.png)
+> 3.  From **Rules** menu, select `Sort`
 >
->    > ### {% icon comment %} Regular expression explained
->    > In this regular expression, `.*` will capture the entire accession ID.
->    >
->    > In the replacement expression, `https://www.uniprot.org/uniprot/\0.fasta`, the `\0` will be replaced by the captured
->    > regular expression (the accession ID) in the resulting column values.
->    {: .comment}
+>     - _"From Column"_: `A`
 >
->    The new column C with the URL we built should appear as shown below.
->    ![screenshot](../../images/rules/rules_example_4_6_url_built.png)
+>     Next is the key step, we will build a URL from the pattern we described above using the accession ID in column A.
 >
->    Finally, let us set our column definitions:
+> 4.  From **Column** menu, select `Using a Regular Expression`
 >
-> 5. From **Rules** menu, select `Add / Modify Column Definitions`
+>     - _"From Column"_: `A`
+>     - Select `Create column from expression replacement`
+>     - _"Regular Expression"_: `.*`
+>     - _"Replacement Expression"_: `https://www.uniprot.org/uniprot/\0.fasta`
+>     - Click `Apply`
+>
+>       ![screenshot](../../images/rules/rules_example_4_5_url.png)
+>
+>     > ### {% icon comment %} Regular expression explained
+>     >
+>     > In this regular expression, `.*` will capture the entire accession ID.
+>     >
+>     > In the replacement expression, `https://www.uniprot.org/uniprot/\0.fasta`, the `\0` will be replaced by the captured
+>     > regular expression (the accession ID) in the resulting column values.
+>     > {: .comment}
+>
+>     The new column C with the URL we built should appear as shown below.
+>     ![screenshot](../../images/rules/rules_example_4_6_url_built.png)
+>
+>     Finally, let us set our column definitions:
+>
+> 5.  From **Rules** menu, select `Add / Modify Column Definitions`
+>
 >     - `Add Definition`, `List Identifier(s)`, Select Column `A`
 >     - `Add Definition`, `URL`, Column `C`
 >
-> 6. Finalize the collection:
->     - *"Name"*: for example `UP000052092`
->     - *"Type"*: `fasta`
->     - Click `Upload`
->    ![screenshot](../../images/rules/rules_example_4_7_mapping_extension_and_name.png)
+> 6.  Finalize the collection:
 >
->    > ### {% icon comment %} JSON Rule Definitions
->    > This example is ready to go, but before clicking "Build" it may be interesting to check out the rules Galaxy is following to clean and import your data. Click the little Wrench icon at the top of the list of rules. The result is a bunch of JavaScript object notation (JSON) text that you should never need to worry about but that you can build or modify by hand if you find it useful. We will use it the next example to quickly restore the list builder back to this state.
->    >
->    > ![screenshot](../../images/rules/rules_example_4_8_source.png)
->    >
->    > This could additionally be copied and pasted if you need to do the same set of operations on multiple metadata inputs that are similarly formatted.
->    {: .comment}
-> 7. Click `Build` and wait for your list of FASTA files to appear.
-{: .hands_on}
-
+>     - _"Name"_: for example `UP000052092`
+>     - _"Type"_: `fasta`
+>     - Click `Upload` > ![screenshot](../../images/rules/rules_example_4_7_mapping_extension_and_name.png)
+>
+>     > ### {% icon comment %} JSON Rule Definitions
+>     >
+>     > This example is ready to go, but before clicking "Build" it may be interesting to check out the rules Galaxy is following to clean and import your data. Click the little Wrench icon at the top of the list of rules. The result is a bunch of JavaScript object notation (JSON) text that you should never need to worry about but that you can build or modify by hand if you find it useful. We will use it the next example to quickly restore the list builder back to this state.
+>     >
+>     > ![screenshot](../../images/rules/rules_example_4_8_source.png)
+>     >
+>     > This could additionally be copied and pasted if you need to do the same set of operations on multiple metadata inputs that are similarly formatted.
+>     > {: .comment}
+>
+> 7.  Click `Build` and wait for your list of FASTA files to appear.
+>     {: .hands_on}
 
 # Building Matched Collections
 
@@ -165,9 +172,11 @@ For this example we will re-use the metadata from the [previous example](#exampl
 > ### {% icon hands_on %} Hands-on: Build a matched collection
 >
 > 1. **Open** the Rule Builder
->    - *"Upload data as"*: `Collection(s)`
->    - *"Load tabular data from"*: `Pasted Table`
+>
+>    - _"Upload data as"_: `Collection(s)`
+>    - _"Load tabular data from"_: `Pasted Table`
 >    - Paste the table from the previous exercise:
+>
 >    ```
 >    Entry	Entry name	Status	Protein names	Gene names	Organism	Length
 >    E7C0H6	E7C0H6_9PAPI	unreviewed	Major capsid protein L1	L1	Equus caballus papillomavirus 3	498
@@ -178,16 +187,41 @@ For this example we will re-use the metadata from the [previous example](#exampl
 >    E7C0H4	E7C0H4_9PAPI	unreviewed	Putative E4 early protein (Fragment)		Equus caballus papillomavirus 3	175
 >    E7C0H2	E7C0H2_9PAPI	unreviewed	Replication protein E1 (EC 3.6.4.12) (ATP-dependent helicase E1)	E1	Equus caballus papillomavirus 3	621
 >    ```
+>
 >    - Click `Build` and proceed to the rule builder.
->    ![screenshot](../../images/rules/rules_example_5_1_inputs.png)
+>      ![screenshot](../../images/rules/rules_example_5_1_inputs.png)
 >
 > 2. Instead of manually creating the rules this time, we will import an existing set of rules from some JSON. Copy the following text into your clipboard. These are the same rules as used in the [Building URLs from Accession Information](#building-urls-from-accession-information) tutorial.
 >
 >    ```json
->    {"rules":[{"type":"add_filter_count","count":"1","which":"first","invert":false},{"type":"remove_columns","target_columns":[1,2,4,5,6]},{"type":"sort","target_column":0,"numeric":false},{"type":"add_column_regex","target_column":0,"expression":".*","replacement":"http://www.uniprot.org/uniprot/\\0.fasta"}],"mapping":[{"type":"info","columns":[1]},{"type":"list_identifiers","columns":[0],"editing":false},{"type":"url","columns":[2]}],"extension":"csfasta"}
+>    {
+>      "rules": [
+>        {
+>          "type": "add_filter_count",
+>          "count": "1",
+>          "which": "first",
+>          "invert": false
+>        },
+>        { "type": "remove_columns", "target_columns": [1, 2, 4, 5, 6] },
+>        { "type": "sort", "target_column": 0, "numeric": false },
+>        {
+>          "type": "add_column_regex",
+>          "target_column": 0,
+>          "expression": ".*",
+>          "replacement": "http://www.uniprot.org/uniprot/\\0.fasta"
+>        }
+>      ],
+>      "mapping": [
+>        { "type": "info", "columns": [1] },
+>        { "type": "list_identifiers", "columns": [0], "editing": false },
+>        { "type": "url", "columns": [2] }
+>      ],
+>      "extension": "csfasta"
+>    }
 >    ```
 >
 > 3. In the ruler builder interface, select the **wrench icon** next to the word `Rules`
+>
 >    - Paste the rules into the textbox
 >    - Click `Apply`
 >
@@ -198,71 +232,83 @@ For this example we will re-use the metadata from the [previous example](#exampl
 >
 >    This next part may seem a bit silly at first but we are going to add some columns with fixed values into the builder. When we split up the columns at a later step this will make sense.
 >
-> 4. From **Column** menu, select  `Fixed Value`
->     - *"Value"*: `fasta`
->     - Click `Apply`
->    This value will eventually be used for the datatype of the file.
+>    > ### {% icon comment %} Saved Rules Selector
+>    >
+>    > Another way to do this is to click the **history icon** to the right of the wrench icon.  This will drop down a list of the last 10 rule sets you built. Simply select the most recent one (or whichever one fits your needs) and the saved rules will be loaded in. 
+>    > {: .comment}
 >
-> 4. **Repeat** this process with:
->      - *"Value"*:`UP000052092 FASTA`
+> 4. From **Column** menu, select `Fixed Value`
+>
+>    - _"Value"_: `fasta`
+>    - Click `Apply`
+>      This value will eventually be used for the datatype of the file.
+>
+> 5. **Repeat** this process with:
+>
+>    - _"Value"_:`UP000052092 FASTA`
 >
 >    Next we will repeat the process of adding URL, name, and datatype columns but for GFF files.
 >
-> 5. From **Column**, select `Using a Regular Expression`
->     - *"From Column"*: `A`
->     - Select `Create column from expression replacement`
->     - *"Regular Expression"*: `.*`
->     - *"Replacement Expression"*: `https://www.uniprot.org/uniprot/\0.gff`.
->     ![screenshot](../../images/rules/rules_example_5_5_url.png)
+> 6. From **Column**, select `Using a Regular Expression`
+>
+>    - _"From Column"_: `A`
+>    - Select `Create column from expression replacement`
+>    - _"Regular Expression"_: `.*`
+>    - _"Replacement Expression"_: `https://www.uniprot.org/uniprot/\0.gff`.
+>      ![screenshot](../../images/rules/rules_example_5_5_url.png)
 >
 >    Next we will add two more columns
-> 6. From **Column** menu, select  `Fixed Value`
->     - *"Value"*: `gff3`
->     - Click `Apply`
+>
+> 7. From **Column** menu, select `Fixed Value`
+>
+>    - _"Value"_: `gff3`
+>    - Click `Apply`
 >
 >    This value will eventually be used for the datatype of the file.
 >
-> 7. **Repeat** this process with:
->     - *"Value"*: `UP000052092 GFF3`
+> 8. **Repeat** this process with:
+>
+>    - _"Value"_: `UP000052092 GFF3`
 >
 >    Your very large list of rules should now look like the following screenshot.
 >    ![screenshot](../../images/rules/rules_example_5_6_presplit.png)
 >
 >    Notice we have two URLs, two collection names, and two datatype extensions for each accession ID we started with. Like in the example where we split the columns, here we will split these up to describe multiple collections.
-> 7. From **Rules** menu, select  `Split Columns`
->    - *"Odd Number Column(s)"*: `C`, `D`, and `E` (the fasta columns)
->    - *"Even Number Column(s)"*: `F`, `G`, and `H` (the gff3 columns)
 >
->    This will take the row consisting of the columns `ABCDEFGH` and build two rows, one with `ABCDEF` and the other with `ABFGH`
->    ![screenshot](../../images/rules/rules_example_5_7_split_columns.png)
+> 9. From **Rules** menu, select `Split Columns`
 >
-> 8. Click `Apply` and you should be returned the list of rules.
->    ![screenshot](../../images/rules/rules_example_5_8_split.png)
+>    - _"Odd Number Column(s)"_: `C`, `D`, and `E` (the fasta columns)
+>    - _"Even Number Column(s)"_: `F`, `G`, and `H` (the gff3 columns)
 >
->    Finally, we need to add some more column definitions for these new columns we just created:
+>    This will take the row consisting of the columns `ABCDEFGH` and build two rows, one with `ABCDEF` and the other with `ABFGH` > ![screenshot](../../images/rules/rules_example_5_7_split_columns.png)
 >
-> 9. From **Rules** menu, select `Add / Modify Column Definitions`
+> 10. Click `Apply` and you should be returned the list of rules.
+>     ![screenshot](../../images/rules/rules_example_5_8_split.png)
+>
+>     Finally, we need to add some more column definitions for these new columns we just created:
+>
+> 11. From **Rules** menu, select `Add / Modify Column Definitions`
+>
 >     - `Add Definition`, `List Identifier`, Column `A`
 >     - `Add Definition`, `Info`, Column `B`
 >     - `Add Definition`, `URL`, Column `C`
 >     - `Add Definition`, `Type`, Column `D`
 >     - `Add Definition`, `Collection Name`, Column `E`
 >
->    Notice when these values are being generated from the metadata the option to specify them manually from the **type** and **collection name** boxes from the bottom of the form disappear.
->    ![screenshot](../../images/rules/rules_example_5_9_mapping.png)
+>     Notice when these values are being generated from the metadata the option to specify them manually from the **type** and **collection name** boxes from the bottom of the form disappear.
+>     ![screenshot](../../images/rules/rules_example_5_9_mapping.png)
 >
-> 10. Click `Upload`
+> 12. Click `Upload`
 >
 >     Galaxy should make two collections - one containing FASTA files and one containing GFF3 files.
 >
-{: .hands_on}
-
+> {: .hands_on}
 
 # Building Nested Lists
 
 In this example, we will be building a nested list using data from [SRA](https://www.ncbi.nlm.nih.gov/sra). This is a more sophisticated structure for organizing datasets in Galaxy. In the above examples we organized datasets into simple lists with a single "list identifier" describing the files in the collection. Galaxy allows lists to be organized into nested lists - where each level of the list has an identifier.
 
-If two such identifiers are present, this is a list of lists (called ``list:list`` in the workflow editor). In such a structure the outer identifiers (or first level of identifiers) may describe sample names and the inner identifiers (or second level) may describe replicates. Alternative the outer identifiers may describe conditions and the inner identifiers may describe individual samples. The structure of such collections should ideally be dictated by the study design.
+If two such identifiers are present, this is a list of lists (called `list:list` in the workflow editor). In such a structure the outer identifiers (or first level of identifiers) may describe sample names and the inner identifiers (or second level) may describe replicates. Alternative the outer identifiers may describe conditions and the inner identifiers may describe individual samples. The structure of such collections should ideally be dictated by the study design.
 
 If certain parts of your analysis require benefit from datasets being nested this way while other parts require feeding you data to a Galaxy tool all together without such a structure, then it is probably best to go ahead and build nested lists at the start of your analysis and then use the "Flatten Collection" tool on the resulting collection or a derivative collection to get the flat structure needed by certain tools in certain parts of your analysis.
 
@@ -270,12 +316,12 @@ For this example, we will describe analyzing the metadata of the [SRA project PR
 
 So use either the SRA exporter tool or download the CSV file with fake URLs. If you download the data from the SRA exporter tool, select only the first 12 columns from the data (up to the column labeled "Library Name") and copy the resulting data to your clipboard.
 
-
 > ### {% icon hands_on %} Hands-on: Building Nested Lists
 >
 > 1. Open the Rule Builder
->    - *"Upload data as"*: `Collection(s)`
->    - *"Load tabular data from"*: `Pasted Table`
+>
+>    - _"Upload data as"_: `Collection(s)`
+>    - _"Load tabular data from"_: `Pasted Table`
 >    - Paste the table
 >
 >    > ### {% icon solution %} Show Table
@@ -368,7 +414,8 @@ So use either the SRA exporter tool or download the CSV file with fake URLs. If 
 >    > SRR5363714	2017-03-21 11:42:06	2017-03-21 11:31:01	1839276	369651139	1820660	200	129	assembly	https://raw.githubusercontent.com/jmchilton/galaxy-examples/master/sra_PRJNA355367/SRR5363714	SRX2659159	cip2
 >    > SRR5363715	2017-03-21 11:26:06	2017-03-21 10:59:33	712060	142833136	702138	200	51	assembly	https://sra-download.ncbi.nlm.nih.gov/traces/sra46/SRR/005238/SRR5363715	SRX2659160	cip1
 >    > ```
->    {: .solution}
+>    >
+>    > {: .solution}
 >
 >    ![screenshot](../../images/rules/rules_example_6_1_paste.png)
 >
@@ -378,65 +425,74 @@ So use either the SRA exporter tool or download the CSV file with fake URLs. If 
 >    Navigate to the end of the table and notice that column J is the URL target we are hoping to download for each file.
 >
 > 2. As in the previous exercises, please:
->     - Set this `Column definition` for the URL target
->     - Strip the header row
 >
->       > ### {% icon solution %} Solution
->       > From **Filter** menu, select `First or Last N Rows`
->       >   - Filter first Row
->       >
->       >  From **Rules** menu, select  `Add / Modify Column Definitions`
->       >   - `Add Definition`, `URL`, Column `J`.
->       >   ![screenshot](../../images/rules/rules_example_6_3_end_of_table.png)
->       {: .solution}
+>    - Set this `Column definition` for the URL target
+>    - Strip the header row
+>
+>      > ### {% icon solution %} Solution
+>      >
+>      > From **Filter** menu, select `First or Last N Rows`
+>      >
+>      > - Filter first Row
+>      >
+>      > From **Rules** menu, select `Add / Modify Column Definitions`
+>      >
+>      > - `Add Definition`, `URL`, Column `J`.
+>      >   ![screenshot](../../images/rules/rules_example_6_3_end_of_table.png)
+>      >   {: .solution}
 >
 >    For the analysis we wish to do, we want to group these files based on the type indicated in column `L` (LibraryName) shown below.
 >    The source data though adds numbers to the library type to to generate the `LibraryName`, we need to strip those out to use the type
 >    as an identifier for grouping the datasets. To do this, use the regex column adder rule again.
 >
 > 3. From **Column** menu, select `Using a Regular Expression`
->     - *"From Column"*: `L`
->     - Select `Create column from regular expression groups`
->     - *"Regular Expression"*: `([^\d]+)\d+`.
->     - *"Number of Groups"*: `1`
+>
+>    - _"From Column"_: `L`
+>    - Select `Create column from regular expression groups`
+>    - _"Regular Expression"_: `([^\d]+)\d+`.
+>    - _"Number of Groups"_: `1`
 >
 >    The result looks like:
 >    ![screenshot](../../images/rules/rules_example_6_4_regex.png)
 >
 >    > ### {% icon comment %} Regular expression explained
+>    >
 >    > In this regular expression, `\d` means any digit, so `[^...]` means match anything that is not inside the brackets.
 >    > So together `[^\d]+` means match one or more, non digits at the start of the column and the `()` around that means capture
 >    > them into a group. We've add `\d+` at the end of the expression but it isn't grouped so we are effectively ignoring the
 >    > digits at the end as we had hoped.
->    {: .comment}
+>    > {: .comment}
 >
 >    Now we have two columns we need to assign list identifiers for, the new column `M` for the first, outer identifier and the
 >    first column `A` for the inner, second identifier.
 >
 > 4. From **Rules** menu, select `Add / Modify Column Definitions`
->     - `Add Definition`, `List Identifier(s)`, Column `M`
->     - Click on `... Assign Another Column`
->     - Select column `A`
 >
->        > ### {% icon comment %} Re-ordering columns
->        > If you make a mistake in the order you select columns in you can simple use the up and down arrows to re-arrange the list
->        {: .comment}
+>    - `Add Definition`, `List Identifier(s)`, Column `M`
+>    - Click on `... Assign Another Column`
+>    - Select column `A`
+>
+>      > ### {% icon comment %} Re-ordering columns
+>      >
+>      > If you make a mistake in the order you select columns in you can simple use the up and down arrows to re-arrange the list
+>      > {: .comment}
 >
 >    The result should look something like this:
 >    ![screenshot](../../images/rules/rules_example_6_5_multiple_identifiers_edit.png)
 >
 > 5. Click `Apply` to return to the rule preview screen and notice there are two column listed for the list identifier definition
->   ![screenshot](../../images/rules/rules_example_6_6_multiple_identifiers.png)
+>    ![screenshot](../../images/rules/rules_example_6_6_multiple_identifiers.png)
 >
 > 6. Finalize your collection:
->    - *"Type"*: `txt`
+>
+>    - _"Type"_: `txt`
 >    - Name your Collection
 >    - Click `Upload`
 >
->    Note: set *"Type"* to `sra` if you used real data from SRA instead of the table from exercise.
->   ![screenshot](../../images/rules/rules_example_6_7_named.png)
+>    Note: set _"Type"_ to `sra` if you used real data from SRA instead of the table from exercise.
+>    ![screenshot](../../images/rules/rules_example_6_7_named.png)
 >
-{: .hands_on}
+> {: .hands_on}
 
 # Apply Rules to Existing Collections
 
@@ -446,120 +502,128 @@ from the [Pasilla Bioconductor Package](https://bioconductor.org/packages/releas
 
 > ### {% icon hands_on %} Hands-on: Applying Rules to Existing Collections
 >
-> 1. Open the Rule Builder
->    - *"Upload data as"*: `Collection(s)`
->    - *"Load tabular data from"*: `Pasted Table`
->    - Paste the following table:
+> 1.  Open the Rule Builder
 >
->    ```
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/treated1fb.txt treated_single_1
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/treated2fb.txt treated_paired_2
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/treated3fb.txt treated_paired_3
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated1fb.txt untreated_single_4
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated2fb.txt untreated_single_5
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated3fb.txt untreated_paired_6
->    https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated4fb.txt untreated_paired_7
->    ```
+>     - _"Upload data as"_: `Collection(s)`
+>     - _"Load tabular data from"_: `Pasted Table`
+>     - Paste the following table:
 >
->    Next, we set up the column types:
+>     ```
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/treated1fb.txt treated_single_1
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/treated2fb.txt treated_paired_2
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/treated3fb.txt treated_paired_3
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated1fb.txt untreated_single_4
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated2fb.txt untreated_single_5
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated3fb.txt untreated_paired_6
+>     https://raw.githubusercontent.com/jmchilton/galaxy/apply_rules_tutorials/test-data/rules/untreated4fb.txt untreated_paired_7
+>     ```
 >
-> 2. From **Rules** menu, select  `Add / Modify Column Definitions`
->    - `Add Definition`, `URL`, column `A`
->    - `Add Definition`, `List Identifier(s)`, column `B`
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_2_input_rules.png)
+>     Next, we set up the column types:
 >
-> 3. Finalize the collection:
->    - *"Type"*: `txt`
->    - Give the collection a name.
->    - Click `Build`
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_4_input_list.png)
+> 2.  From **Rules** menu, select `Add / Modify Column Definitions`
 >
->    The first thing we will do to this new collection is add some levels or depth to its structure.
->    Lets assume we want to group it into "treated" and "untreated" lists and "paired" and "single"
->    sublists below that. We can do this with the `Apply Rules` collection operation tool, which will
->    likely be under the `Collection Operations` tool menu in your Galaxy interface.
+>     - `Add Definition`, `URL`, column `A`
+>     - `Add Definition`, `List Identifier(s)`, column `B` > ![screenshot](../../images/rules/rules_apply_rules_example_4_2_input_rules.png)
 >
-> 4. Open the **Apply Rule to Collection** tool
+> 3.  Finalize the collection:
 >
->    The very simple interface should look something like this:
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_5_apply_rules_landing.png)
+>     - _"Type"_: `txt`
+>     - Give the collection a name.
+>     - Click `Build` > ![screenshot](../../images/rules/rules_apply_rules_example_4_4_input_list.png)
 >
->    This interface simply lets one pick a collection to operate on and then launch the rule builder
->    window to work to describe and preview manipulating the metadata of that collection.
+>     The first thing we will do to this new collection is add some levels or depth to its structure.
+>     Lets assume we want to group it into "treated" and "untreated" lists and "paired" and "single"
+>     sublists below that. We can do this with the `Apply Rules` collection operation tool, which will
+>     likely be under the `Collection Operations` tool menu in your Galaxy interface.
 >
-> 5. **Apply Rule to Collection** {% icon tool %} with the following parameters:
->    - *"Input Collection"*: the collection we just uploaded
->    - Click the `Edit` button
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_6_apply_rules_init_flat.png)
+> 4.  Open the **Apply Rule to Collection** tool
 >
->    When a flat collection is used with this tool, the rule builder will initialize a default rule to pull
->    the list identifier out for each item of the collection as shown above. Next we will use regular expressions
->    to build two new columns, these columns will group the datasets into "treated" and "untreated" sublists and
->    then "single" and "paired" sublists of that. This rule is found under the `Column` menu.
+>     The very simple interface should look something like this:
+>     ![screenshot](../../images/rules/rules_apply_rules_example_4_5_apply_rules_landing.png)
 >
->    We'll transform column A into some more useful columns
+>     This interface simply lets one pick a collection to operate on and then launch the rule builder
+>     window to work to describe and preview manipulating the metadata of that collection.
 >
-> 6. From **Column**, select `Using a Regular Expression`
->    - *"Column"*: `A`
->    - Select `Create columns matching expression groups`
->    - *"Regular Expression"*: `(.*)_(.*)_.*`
->    - *"Number of Groups"*: `2`
+> 5.  **Apply Rule to Collection** {% icon tool %} with the following parameters:
 >
->    > ### {% icon comment %} Regular expression explained
->    >  Here ``.*`` means match any number of any character - so basically match anything.
->    >  The parentheses around ``.*`` means form a "group" from whatever is matched.
->    >  The ``_`` describes the literal ``_`` values in the identifier we are matching. The result is that
->    > everything before the first ``_`` will be matched as the first group and everything between the ``_``
->    > characters will be matched as the second group. Click to apply this rule and two new columns should be created.
->    >
->    > We have defined two matching groups (the `(.*)` in the regex), so the number of groups is set to `2`
->    {: .comment}
+>     - _"Input Collection"_: the collection we just uploaded
+>     - Click the `Edit` button
+>       ![screenshot](../../images/rules/rules_apply_rules_example_4_6_apply_rules_init_flat.png)
 >
-> 7. From  **Rules**, select `Add / Modify Column Definitions`
->    - `Add Definition`, `List Identifier(s)`, Column `B`
->    - `Assign another column`, column `C`
->    - `Assign another column`, column `A`
->    - Click `Save`
+>     When a flat collection is used with this tool, the rule builder will initialize a default rule to pull
+>     the list identifier out for each item of the collection as shown above. Next we will use regular expressions
+>     to build two new columns, these columns will group the datasets into "treated" and "untreated" sublists and
+>     then "single" and "paired" sublists of that. This rule is found under the `Column` menu.
 >
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_7_apply_rules_add_depth.png)
+>     We'll transform column A into some more useful columns
 >
->    The resulting collection should have two new levels of depth for "untreated" vs "treated" and "paired" vs "single" as shown below:
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_8_nested.png)
+> 6.  From **Column**, select `Using a Regular Expression`
 >
->    Placing the "single" and "paired" sublists inside the "treated" and "untreated" lists was a bit arbitrary and depending on the
->    workflow these may need to be inverted at different parts of an analysis. The **Apply Rules** tool can be used to invert these levels
->    if that is needed.
+>     - _"Column"_: `A`
+>     - Select `Create columns matching expression groups`
+>     - _"Regular Expression"_: `(.*)_(.*)_.*`
+>     - _"Number of Groups"_: `2`
 >
-> 8. **Apply Rule to Collection** {% icon tool %} with the following parameters:
->    - *"Input Collection"*: the new nested list we created in the previous step
->    - Click "Edit".
+>     > ### {% icon comment %} Regular expression explained
+>     >
+>     > Here `.*` means match any number of any character - so basically match anything.
+>     > The parentheses around `.*` means form a "group" from whatever is matched.
+>     > The `_` describes the literal `_` values in the identifier we are matching. The result is that
+>     > everything before the first `_` will be matched as the first group and everything between the `_`
+>     > characters will be matched as the second group. Click to apply this rule and two new columns should be created.
+>     >
+>     > We have defined two matching groups (the `(.*)` in the regex), so the number of groups is set to `2`
+>     > {: .comment}
+>
+> 7.  From **Rules**, select `Add / Modify Column Definitions`
+>
+>     - `Add Definition`, `List Identifier(s)`, Column `B`
+>     - `Assign another column`, column `C`
+>     - `Assign another column`, column `A`
+>     - Click `Save`
+>
+>     ![screenshot](../../images/rules/rules_apply_rules_example_4_7_apply_rules_add_depth.png)
+>
+>     The resulting collection should have two new levels of depth for "untreated" vs "treated" and "paired" vs "single" as shown below:
+>     ![screenshot](../../images/rules/rules_apply_rules_example_4_8_nested.png)
+>
+>     Placing the "single" and "paired" sublists inside the "treated" and "untreated" lists was a bit arbitrary and depending on the
+>     workflow these may need to be inverted at different parts of an analysis. The **Apply Rules** tool can be used to invert these levels
+>     if that is needed.
+>
+> 8.  **Apply Rule to Collection** {% icon tool %} with the following parameters:
+>
+>     - _"Input Collection"_: the new nested list we created in the previous step
+>     - Click "Edit".
 >
 >     ![screenshot](../../images/rules/rules_apply_rules_example_4_9_apply_rules_init_nested.png)
 >
->    Notice when loading a nested collection into the rule builder, there is a column for each layer of the list for each element.
->    One can pretty easily invert the outer two layers of the list by simply assigning the list identifiers in a new order. So select to assign "List Identifiers" and this time assign them to columns "B", "A", and "C" - in that order.
+>     Notice when loading a nested collection into the rule builder, there is a column for each layer of the list for each element.
+>     One can pretty easily invert the outer two layers of the list by simply assigning the list identifiers in a new order. So select to assign "List Identifiers" and this time assign them to columns "B", "A", and "C" - in that order.
 >
-> 9. From **Rules**, select `Add / Modify Column Definitions`
->    - `Add Definition`, `List Identifier(s)`, Column `B`
->    - `Assign another column`, Column `A`
->    - `Assign another column`, Column `C`
->    - Click `Save`
+> 9.  From **Rules**, select `Add / Modify Column Definitions`
 >
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_10_apply_rules_inverted.png)
+>     - `Add Definition`, `List Identifier(s)`, Column `B`
+>     - `Assign another column`, Column `A`
+>     - `Assign another column`, Column `C`
+>     - Click `Save`
 >
->    The resulting collection should be inverted.
+>     ![screenshot](../../images/rules/rules_apply_rules_example_4_10_apply_rules_inverted.png)
 >
->    ![screenshot](../../images/rules/rules_apply_rules_example_4_11_inverted.png)
+>     The resulting collection should be inverted.
 >
->    In addition to structural re-organizations of a collection, the Apply Rules tool can be used to
->    filter elements out of the collection.
+>     ![screenshot](../../images/rules/rules_apply_rules_example_4_11_inverted.png)
+>
+>     In addition to structural re-organizations of a collection, the Apply Rules tool can be used to
+>     filter elements out of the collection.
 >
 > 10. **Apply Rule to Collection** {% icon tool %} with the following parameters:
->     - *"Input Collection"*: the original flat list created
+>
+>     - _"Input Collection"_: the original flat list created
 >     - Click `Edit`
 >     - From **Filter** menu, select `From a regular expression`
->       - *"From Column"*: `A`
->       - *"Regular Expression"*: `.*_single_.*`
+>       - _"From Column"_: `A`
+>       - _"Regular Expression"_: `.*_single_.*`
 >     - From **Rules** menu, select `Add / Modify Column Definitions`
 >       - `Add Definition`, `List Identifier(s)`, Column `A`
 >
@@ -571,23 +635,12 @@ from the [Pasilla Bioconductor Package](https://bioconductor.org/packages/releas
 >
 >     Structural re-organizations of collections can also be combined with filtering. To demonstrate this, reopen the original flat list created for this example again in the rule builder of the Apply Rules tool. Use the same regular expression as last time to filter the result but also add a column for "treated" and "untreated" list identifiers.
 >
-> 11. **Apply Rule to Collection** {% icon tool %} with the following parameters:
->     - From **Filter** menu, select `Using a Regular Expression`
->       - *"From Column"*: `A`
->       - *"Regular Expression"*: `.*_single_.*`
->     - From **Column** menu, select `Using a Regular Expression`
->       - *"From Column"*: `A`
->       - Select `Create column from regular expression groups`
->       - *"Regular Expression"*:  `(.*)_single_.*`
->       - *"Number of Groups"*: `1`
->     - From **Rules** menu, select  `Add / Modify Column Definitions`
->       - `Add Definition`, `List Identifier(s)`. Column `B`
->       - `Assign another column`, Column `A`
+> 11. **Apply Rule to Collection** {% icon tool %} with the following parameters: - From **Filter** menu, select `Using a Regular Expression` - _"From Column"_: `A` - _"Regular Expression"_: `.*_single_.*` - From **Column** menu, select `Using a Regular Expression` - _"From Column"_: `A` - Select `Create column from regular expression groups` - _"Regular Expression"_: `(.*)_single_.*` - _"Number of Groups"_: `1` - From **Rules** menu, select `Add / Modify Column Definitions` - `Add Definition`, `List Identifier(s)`. Column `B` - `Assign another column`, Column `A`
 >
->     ![screenshot](../../images/rules/rules_apply_rules_example_4_14_apply_rules_filtered_and_nested.png)
+>         ![screenshot](../../images/rules/rules_apply_rules_example_4_14_apply_rules_filtered_and_nested.png)
 >
->     The resulting collection should be a filtered to only include the "single" data and broken into "treated" and "untreated" sublists.
+>         The resulting collection should be a filtered to only include the "single" data and broken into "treated" and "untreated" sublists.
 >
->     ![screenshot](../../images/rules/rules_apply_rules_example_4_15_filtered_and_nested.png)
-{: .hands_on}
-
+>         ![screenshot](../../images/rules/rules_apply_rules_example_4_15_filtered_and_nested.png)
+>
+>     {: .hands_on}
